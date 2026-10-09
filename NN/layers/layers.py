@@ -14,8 +14,10 @@ class Dense:
         self.biases = Value(np.random.rand(1, output_count))
         self.activation = activation
 
-    def forward_pass(self, input):
-        output = input.matmul(self.weights) + self.biases
+    def forward_pass(self, input_data):
+        input_data = input_data if isinstance(input_data, Value) else Value(input_data)
+
+        output = input_data.matmul(self.weights) + self.biases
         if self.activation is not None:
             output = self.activation(output)
         return output
