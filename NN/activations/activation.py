@@ -2,6 +2,8 @@ from utils.autograd.autograd import Value
 import numpy as np
 
 def ReLU(x):
+    x = x if isinstance(x, Value) else Value(x)
+
     out = Value(np.maximum(0, x.data), (x,), "relu")
 
     def _backward():

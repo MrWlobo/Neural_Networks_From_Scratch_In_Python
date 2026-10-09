@@ -21,3 +21,6 @@ class Dense:
         if self.activation is not None:
             output = self.activation(output)
         return output
+
+    def parameters(self):
+        return [self.weights, self.biases]

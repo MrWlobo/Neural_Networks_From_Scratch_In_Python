@@ -15,3 +15,9 @@ class Sequential:
             input_data = layer.forward_pass(input_data)
 
         return input_data
+
+    def parameters(self):
+        params = []
+        for layer in self.layers:
+            params.extend(layer.parameters())
+        return params
