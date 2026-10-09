@@ -1,11 +1,11 @@
 from utils.autograd.autograd import Value
 import numpy as np
 
-def ReLU(input):
-    out = Value(np.maximum(0, input.data), (input,), "relu")
+def ReLU(x):
+    out = Value(np.maximum(0, x.data), (x,), "relu")
 
     def _backward():
-        input.grad += (out.data > 0) * out.grad
+        x.grad += (out.data > 0) * out.grad
 
     out._backward = _backward
     return out
