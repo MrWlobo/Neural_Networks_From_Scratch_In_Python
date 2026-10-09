@@ -95,6 +95,9 @@ class Value:
     def __rmul__(self, other):
         return self * other
 
+    def __repr__(self):
+        return f"Data:\n{self.data}\n\nGradient:\n{self.grad}"
+
     def backward(self):
         topology = []
         visited = set()
