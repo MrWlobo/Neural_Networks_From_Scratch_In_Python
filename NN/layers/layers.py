@@ -24,3 +24,24 @@ class Dense:
 
     def parameters(self):
         return [self.weights, self.biases]
+
+
+class Flatten:
+    def forward_pass(self, input_data):
+        input_data = input_data if isinstance(input_data, Value) else Value(input_data)
+
+        original_shape = input_data.data.shape
+        # Flatten everything except the batch dimension
+        flattened_data = input_data.data.reshape(original_shape[0], -1)
+
+        out = Value(flattened_data, (input_data,), "flatten")
+
+        def _backward():
+            # Reshape the incoming gradients back to the original image dimensions
+            input_data.grad += out.grad.reshape(original_shape)
+
+        out._backward = _backward
+        return out
+
+    def parameters(self):
+        return []
